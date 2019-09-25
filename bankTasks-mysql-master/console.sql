@@ -32,3 +32,6 @@ SELECT COUNT(idClient) FROM client;
 SELECT COUNT(idClient) FROM client where Department_idDepartment=2;
 
 # 10. Знайти кредити, які мають найбільшу суму для кожного клієнта окремо.
+SELECT max(Sum), Client_idClient
+FROM bank.application
+group by Client_idClient ;
