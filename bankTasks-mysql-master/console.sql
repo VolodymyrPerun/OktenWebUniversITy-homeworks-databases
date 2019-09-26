@@ -37,7 +37,7 @@ FROM bank.application
 group by Client_idClient ;
 
 #11. Визначити кількість заявок на кредит для кожного клієнта.
-SELECT COUNT(CreditState) countOfCreditState, idClient, FirstName, LastName
+SELECT COUNT(CreditState) as countOfCreditState, idClient, FirstName, LastName
 from client
 join application  on client.idClient = application.Client_idClient
 group by idClient, FirstName, LastName;
@@ -47,8 +47,17 @@ SELECT max(Sum), min(Sum) from application;
 
 #13. Порахувати кількість кредитів для клієнтів,які мають вищу освіту.
 
-SELECT count(CreditState) countOfCreditState, idClient, FirstName, LastName
+SELECT count(CreditState) as countOfCreditState, idClient, FirstName, LastName
 from client
 join application  on client.idClient = application.Client_idClient
 where Education='high'
 group by idClient, FirstName, LastName;
+
+#14. Вивести дані про клієнта, в якого середня сума кредитів найвища.
+
+SELECT avg(Sum) as averageSum, idClient, FirstName, LastName
+from client
+join application  on client.idClient = application.Client_idClient
+group by  idClient, FirstName, LastName
+order by averageSum desc
+limit 1;
