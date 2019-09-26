@@ -181,3 +181,25 @@ update bank.client
 join bank.application  on client.idClient = application.Client_idClient
 set application.Sum=6000
 where bank.client.Education='high';
+
+#18. Усіх клієнтів київських відділень пересилити до Києва.
+update bank.client
+join department d on client.Department_idDepartment = d.idDepartment
+set client.City='Kyiv'
+where bank.department.DepartmentCity='Kyiv';
+
+#19. Видалити усі кредити, які є повернені.
+DELETE FROM bank.application WHERE application.CreditState='Returned';
+
+#20. Видалити кредити клієнтів, в яких друга літера прізвища є голосною.
+DELETE bank.application from bank.application
+join bank.client c on bank.application.Client_idClient = c.idClient
+WHERE LastName LIKE '_[aeyuoi]%';
+
+delete bank.application
+from bank.application
+      join bank.client c on application.Client_idClient = c.idClient
+ where LastName like '_a%'
+    or LastName like '_o%' or LastName like '_u%'
+    or LastName like '_e%' or LastName like '_i%'
+or LastName like '_y%';
