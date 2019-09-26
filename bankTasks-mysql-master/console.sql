@@ -43,4 +43,12 @@ join application  on client.idClient = application.Client_idClient
 group by idClient, FirstName, LastName;
 
 # 12. Визначити найбільший та найменший кредити.
-SELECT max(Sum), min(Sum) from application
+SELECT max(Sum), min(Sum) from application;
+
+#13. Порахувати кількість кредитів для клієнтів,які мають вищу освіту.
+
+SELECT count(CreditState) countOfCreditState, idClient, FirstName, LastName
+from client
+join application  on client.idClient = application.Client_idClient
+where Education='high'
+group by idClient, FirstName, LastName;
