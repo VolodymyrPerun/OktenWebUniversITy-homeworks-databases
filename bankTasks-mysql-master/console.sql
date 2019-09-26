@@ -35,3 +35,10 @@ SELECT COUNT(idClient) FROM client where Department_idDepartment=2;
 SELECT max(Sum), Client_idClient
 FROM bank.application
 group by Client_idClient ;
+
+#11. Визначити кількість заявок на кредит для кожного клієнта.
+
+select COUNT(CreditState) countOfCreditState, idClient, FirstName, LastName
+from client
+         join application a on client.idClient = a.Client_idClient
+group by idClient, FirstName, LastName;
