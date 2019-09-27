@@ -192,14 +192,19 @@ where bank.department.DepartmentCity='Kyiv';
 DELETE FROM bank.application WHERE application.CreditState='Returned';
 
 #20. Видалити кредити клієнтів, в яких друга літера прізвища є голосною.
-DELETE bank.application from bank.application
-join bank.client c on bank.application.Client_idClient = c.idClient
-WHERE LastName LIKE '_[aeyuoi]%';
-
-delete bank.application
-from bank.application
-      join bank.client c on application.Client_idClient = c.idClient
+delete application
+from application
+      join client c on application.Client_idClient = c.idClient
  where LastName like '_a%'
     or LastName like '_o%' or LastName like '_u%'
     or LastName like '_e%' or LastName like '_i%'
 or LastName like '_y%';
+
+#21.Знайти львівські відділення, які видали кредитів на загальну суму більше ніж 5000
+SELECT idDepartment, sum(Sum) sum, DepartmentCity
+from department
+join client c on department.idDepartment = c.Department_idDepartment
+join application a on c.idClient = a.Client_idClient
+where  sum>5000 and DepartmentCity='Lviv'
+group by idDepartment, DepartmentCity;
+
