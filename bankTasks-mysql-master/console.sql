@@ -201,10 +201,61 @@ from application
 or LastName like '_y%';
 
 #21.Знайти львівські відділення, які видали кредитів на загальну суму більше ніж 5000
-SELECT idDepartment, sum(Sum) sum, DepartmentCity
+SELECT idDepartment, DepartmentCity
 from department
 join client c on department.idDepartment = c.Department_idDepartment
 join application a on c.idClient = a.Client_idClient
-where  sum>5000 and DepartmentCity='Lviv'
+where  (SELECT SUM(Sum)
+from application)>5000 and DepartmentCity='Lviv'
 group by idDepartment, DepartmentCity;
+
+#22.Знайти клієнтів, які повністю погасили кредити на суму більше ніж 5000
+SELECT idClient, FirstName, LastName, CreditState
+from application
+join client c on application.Client_idClient = c.idClient
+where  CreditState='Returned' and Sum>5000
+group by idClient;
+
+#23. Знайти максимальний неповернений кредит.
+SELECT idClient, FirstName, LastName, MAX(Sum) maxSum , CreditState
+from application
+join client c on application.Client_idClient = c.idClient
+where  CreditState='not returned'
+group by CreditState
+order by maxSum desc
+limit 1;
+
+#24.Знайти клієнта, сума кредиту якого найменша
+SELECT idClient, FirstName, LastName, MIN(Sum) minsum
+from application
+join client c on application.Client_idClient = c.idClient
+order by minsum desc
+limit 1;
+
+#25.Знайти кредити, сума яких більша за середнє значення усіх кредитів
+SELECT idClient, FirstName, LastName, sum, (SELECT AVG(Sum)
+from application)
+from application
+join client c on application.Client_idClient = c.idClient
+where Sum>(SELECT AVG(Sum)
+from application)
+group by  idClient, FirstName, LastName;
+
+#25.Місто клієнта який взяв найбільшу кількість кредитів
+select City
+from client
+ join application a on client.idClient = a.Client_idClient
+group by idClient
+order by count(CreditState) desc
+ limit 1;
+
+#26.Знайти клієнтів, які є з того самого міста, що і клієнт, який взяв найбільшу кількість кредитів
+select idClient, FirstName, LastName
+from client
+where City = (select City
+from client
+ join application a on client.idClient = a.Client_idClient
+group by idClient
+order by count(CreditState) desc
+ limit 1);
 
