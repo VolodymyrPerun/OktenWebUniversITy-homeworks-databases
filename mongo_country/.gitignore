@@ -4,3 +4,54 @@
 /**/Thumbs.db
 /**/package-lock.json
 /**/.DS_Store
+/node_modules/
+/.git/
+/app/css/
+/**/Thumbs.db
+/**/package-lock.json
+/**/.DS_Store
+ib-cov
+*.swp
+*.sw*
+node_modules/
+*.orig
+benchmarks/benchmarks
+benchmarks/benchmarks2
+benchmarks/benchmarks3
+benchmarks/v8.log
+.DS_Store
+docs/*.json
+docs/source/_docs
+tags
+test/triage/*.js
+/.idea
+/inspections
+bin/mongoose.min.js
+coverage
+npm-debug.log
+data/
+.nyc_output/
+
+tools/31*
+
+# Visual Studio
+# =========
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+
+# Visual Studio Code
+.vscode
+
+*.key
+
+docs/*.html
+
+# Webpack output
+dist
+test/files/main.js
+
+package-lock.json
+
+.config*
